@@ -77,26 +77,45 @@ class RedCar extends Car {
       x = e.offsetX - 35;
       y = e.offsetY - 35;
       if (x > canvas.width || x < 0) {
-        colorCode = okColorCode;
-        width = okWidth;
-        height = okHeight;
+        big();
       }
       if (y > canvas.height || y < 0) {
-        colorCode = okColorCode;
-        width = okWidth;
-        height = okHeight;
+        big();
       }
     });
   }
 
+  big() {
+    colorCode = okColorCode;
+    width = okWidth;
+    height = okHeight;
+  }
+
+  small() {
+    colorCode = nokColorCode;
+    width = nokWidth;
+    height = nokHeight;
+  }
+
   collision(Car car) {
-    if (car.x >= x && car.x <= x + width) {
-      if (car.y >= y && car.y <= y + height) {
-        colorCode = nokColorCode;
-        width = nokWidth;
-        height = nokHeight;
+    if (car.x < x  && car.y < y) {
+      if (car.x + car.width >= x && car.y + car.height >= y) {
+        small();
+      }
+    } else if (car.x < x  && car.y > y) {
+      if (car.x + car.width >= x && car.y <= y + height) {
+        small();
+      }
+    } else if (car.x > x  && car.y < y) {
+      if (car.x <= x + width && car.y + car.height >= y) {
+        small();
+      }
+    } else if (car.x > x  && car.y > y) {
+      if (car.x <= x + width && car.y <= y + height) {
+        small();
       }
     }
+
   }
 }
 
@@ -115,6 +134,13 @@ draw(CanvasRenderingContext2D context, List cars, RedCar redCar) {
   redCar.draw();
 }
 
+printCars(cars) {
+  for (var i = 0; i < cars.length; i++) {
+    var car = cars[i];
+    print('x: ${car.x}, y: ${car.y}, width: ${car.width}, height: ${car.height}');
+  }
+}
+
 main() {
   CanvasElement canvas = document.query('#canvas');
   CanvasRenderingContext2D context = canvas.getContext('2d');
@@ -123,11 +149,10 @@ main() {
     var car = new Car(canvas, context);
     cars.add(car);
   }
+
+  //printCars(cars);
+
   var redCar = new RedCar(canvas, context);
-  for (var i = 0; i < cars.length; i++) {
-    var car = cars[i];
-    print('x: ${car.x}, y: ${car.y}, width: ${car.width}, height: ${car.height}');
-  }
   // Redraw every carCount ms.
   new Timer.repeating(carCount < 20 ? carCount : carCount - 16,
     (t) => draw(context, cars, redCar));

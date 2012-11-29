@@ -4,6 +4,8 @@ import 'dart:html';
 import 'dart:isolate';
 import 'dart:math';
 
+import 'package:simple_audio/simple_audio.dart';
+
 part 'color.dart';
 part 'random.dart';
 
@@ -66,8 +68,11 @@ class RedCar extends Car {
   static const num nokWidth = 32;
   static const num nokHeight = 8;
   static const String nokColorCode = '#000000';
+  
+  AudioManager audioManager;
+  bool accident = false;
 
-  RedCar(canvas, context) : super(canvas, context) {
+  RedCar(canvas, context, this.audioManager) : super(canvas, context) {
     colorCode = okColorCode;
     width = okWidth;
     height = okHeight;
@@ -89,30 +94,34 @@ class RedCar extends Car {
     colorCode = okColorCode;
     width = okWidth;
     height = okHeight;
+    accident = false;
   }
 
   small() {
+    //audioManager.playClipFromSource('game', 'collision');
+    audioManager.playClipFromSourceIn(0.0, 'game', 'collision');
     colorCode = nokColorCode;
     width = nokWidth;
     height = nokHeight;
+    accident = true;
   }
 
   collision(Car car) {
     if (car.x < x  && car.y < y) {
       if (car.x + car.width >= x && car.y + car.height >= y) {
-        small();
+        accident ?  null : small();
       }
     } else if (car.x < x  && car.y > y) {
       if (car.x + car.width >= x && car.y <= y + height) {
-        small();
+        accident ?  null : small();
       }
     } else if (car.x > x  && car.y < y) {
       if (car.x <= x + width && car.y + car.height >= y) {
-        small();
+        accident ?  null : small();
       }
     } else if (car.x > x  && car.y > y) {
       if (car.x <= x + width && car.y <= y + height) {
-        small();
+        accident ?  null : small();
       }
     }
 
@@ -141,18 +150,34 @@ printCars(cars) {
   }
 }
 
+String getDemoBaseURL() {
+  String location = window.location.href;
+  int slashIndex = location.lastIndexOf('/');
+  if (slashIndex < 0) {
+    return '/';
+  } else {
+    return location.substring(0, slashIndex);
+  }
+}
+
 main() {
   CanvasElement canvas = document.query('#canvas');
   CanvasRenderingContext2D context = canvas.getContext('2d');
+  
+  AudioManager audioManager = new AudioManager('${getDemoBaseURL()}/sound');
+  AudioSource audioSource = audioManager.makeSource('game');
+  audioSource.positional = false;
+  //AudioClip collisionSound = audioManager.makeClip('collision', 'beep.mp3');
+  AudioClip collisionSound = audioManager.makeClip('collision', 'collision.ogg');
+  collisionSound.load();
+ 
   var cars = new List();
   for (var i = 0; i < carCount; i++) {
     var car = new Car(canvas, context);
     cars.add(car);
   }
 
-  //printCars(cars);
-
-  var redCar = new RedCar(canvas, context);
+  var redCar = new RedCar(canvas, context, audioManager);
   // Redraw every carCount ms.
   new Timer.repeating(carCount < 20 ? carCount : carCount - 16,
     (t) => draw(context, cars, redCar));

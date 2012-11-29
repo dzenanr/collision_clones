@@ -103,6 +103,11 @@ To push tags to the remote repository:
 
 git push --tags
 
+s00: 
+s01: if collision, change red car
+s02: improve collision verification
+s03: add collision sound
+
 -------------------------------------------------------------------------------
 
 Switching from master to spiral

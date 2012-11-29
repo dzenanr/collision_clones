@@ -10,6 +10,8 @@ part 'color.dart';
 part 'random.dart';
 
 const int carCount = 8;
+int timeInMinutes = 0;
+int timeInSeconds = 0;
 
 class Car {
   num x;
@@ -29,8 +31,8 @@ class Car {
     dx = randomDouble(4.0);
     dy = randomDouble(4.0);
 
-    width = 80;
-    height = 32;
+    width = 75;
+    height = 30;
     var diagramWidth = canvas.width.toDouble();
     var diagramHeight = canvas.height.toDouble();
     x = randomDouble(diagramWidth - width);
@@ -41,11 +43,21 @@ class Car {
 
   draw() {
     context.beginPath();
-    context.rect(x, y, width, height);
     context.fillStyle = colorCode;
-    context.fill();
-    context.lineWidth = 2;
     context.strokeStyle = 'black';
+    context.lineWidth = 2;
+    context.rect(x, y, width, height);
+    context.fill();
+    context.stroke();
+    context.closePath();
+    // wheels
+    context.beginPath();
+    context.fillStyle = '#000000';
+    context.rect(x + 10, y - 2, 10, 6); 
+    context.rect(x + width - 20, y - 2, 10, 4);
+    context.rect(x + 10, y + height - 2, 10, 4);
+    context.rect(x + width - 20, y + height - 2, 10, 4);
+    context.fill();
     context.closePath();
   }
 
@@ -61,18 +73,21 @@ class Car {
 
 class RedCar extends Car {
 
-  static const num okWidth = 120;
-  static const num okHeight = 48;
+  static const num okWidth = 90;
+  static const num okHeight = 36;
   static const String okColorCode = '#ff0000';
 
-  static const num nokWidth = 32;
-  static const num nokHeight = 8;
+  static const num nokWidth = 35;
+  static const num nokHeight = 14;
   static const String nokColorCode = '#000000';
   
   AudioManager audioManager;
+  LabelElement score;
+  
   bool accident = false;
+  int accidentCount = 0;
 
-  RedCar(canvas, context, this.audioManager) : super(canvas, context) {
+  RedCar(canvas, context, this.audioManager, this.score) : super(canvas, context) {
     colorCode = okColorCode;
     width = okWidth;
     height = okHeight;
@@ -81,11 +96,21 @@ class RedCar extends Car {
     canvas.document.on.mouseMove.add((MouseEvent e) {
       x = e.offsetX - 35;
       y = e.offsetY - 35;
-      if (x > canvas.width || x < 0) {
+      if (x > canvas.width) {
         big();
+        x = canvas.width - 20;
       }
-      if (y > canvas.height || y < 0) {
+      if (x < 0) {
         big();
+        x = 20 - width;
+      }
+      if (y > canvas.height) {
+        big();
+        y = canvas.height - 20;
+      }
+      if (y < 0) {
+        big();
+        y = 20 - height;
       }
     });
   }
@@ -104,6 +129,8 @@ class RedCar extends Car {
     width = nokWidth;
     height = nokHeight;
     accident = true;
+    accidentCount++;
+    score.text = accidentCount.toString();
   }
 
   collision(Car car) {
@@ -143,7 +170,7 @@ draw(CanvasRenderingContext2D context, List cars, RedCar redCar) {
   redCar.draw();
 }
 
-printCars(cars) {
+_printCars(cars) {
   for (var i = 0; i < cars.length; i++) {
     var car = cars[i];
     print('x: ${car.x}, y: ${car.y}, width: ${car.width}, height: ${car.height}');
@@ -160,7 +187,19 @@ String getDemoBaseURL() {
   }
 }
 
+displayTime(LabelElement time) {
+  timeInSeconds++;
+  if (timeInSeconds == 60) {
+    timeInSeconds = 0;
+    timeInMinutes++;
+  }
+  time.text = '${timeInMinutes} : ${timeInSeconds}';
+}
+
 main() {
+  LabelElement score = document.query('#score');
+  LabelElement time = document.query('#time');
+  
   CanvasElement canvas = document.query('#canvas');
   CanvasRenderingContext2D context = canvas.getContext('2d');
   
@@ -177,9 +216,11 @@ main() {
     cars.add(car);
   }
 
-  var redCar = new RedCar(canvas, context, audioManager);
+  var redCar = new RedCar(canvas, context, audioManager, score);
   // Redraw every carCount ms.
   new Timer.repeating(carCount < 20 ? carCount : carCount - 16,
     (t) => draw(context, cars, redCar));
+  
+  new Timer.repeating(1000, (t) => displayTime(time));
 }
 

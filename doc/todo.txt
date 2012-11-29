@@ -1,0 +1,8 @@
+To do
+
++ if the number of collisions is greater than the number of seconds, you loose
++ save the best score in a local storage
++ use images for cars
++ rotate cars to follow the move direction
++ parametrize the number of cars 
++ parametrize the speed of cars 

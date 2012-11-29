@@ -1,5 +1,6 @@
 To do
 
++ check the rapid increase in collisions
 + avoid collisions of other (other than the red car) cars
 + if the number of collisions is greater than the number of seconds, you loose
 + save the best score in a local storage

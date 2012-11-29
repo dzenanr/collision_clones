@@ -91,8 +91,6 @@ class RedCar extends Car {
     colorCode = okColorCode;
     width = okWidth;
     height = okHeight;
-    x = canvas.width/2;
-    y = canvas.height/2;
     canvas.document.on.mouseMove.add((MouseEvent e) {
       x = e.offsetX - 35;
       y = e.offsetY - 35;
@@ -187,13 +185,15 @@ String getDemoBaseURL() {
   }
 }
 
-displayTime(LabelElement time) {
-  timeInSeconds++;
-  if (timeInSeconds == 60) {
-    timeInSeconds = 0;
-    timeInMinutes++;
+displayTime(RedCar redCar, LabelElement time) {
+  if (!redCar.accident) {
+    timeInSeconds++;
+    if (timeInSeconds == 60) {
+      timeInSeconds = 0;
+      timeInMinutes++;
+    }
+    time.text = '${timeInMinutes} : ${timeInSeconds}';
   }
-  time.text = '${timeInMinutes} : ${timeInSeconds}';
 }
 
 main() {
@@ -220,7 +220,7 @@ main() {
   // Redraw every carCount ms.
   new Timer.repeating(carCount < 20 ? carCount : carCount - 16,
     (t) => draw(context, cars, redCar));
-  
-  new Timer.repeating(1000, (t) => displayTime(time));
+  // active time
+  new Timer.repeating(1000, (t) => displayTime(redCar, time));
 }
 

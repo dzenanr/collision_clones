@@ -1,8 +1,11 @@
 To do
 
++ avoid collisions of other (other than the red car) cars
 + if the number of collisions is greater than the number of seconds, you loose
 + save the best score in a local storage
 + use images for cars
-+ rotate cars to follow the move direction
-+ parametrize the number of cars 
++ rotate a car to follow its move direction
++ parametrize the number of cars
++ parametrize the size of cars 
 + parametrize the speed of cars 
++ introduce levels

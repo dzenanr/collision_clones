@@ -28,7 +28,7 @@ main() {
 
   int timeInMinutes = 0;
   int timeInSeconds = 0;
-  bool stopped = false;
+  bool stopped = true;
 
   var audioManager = new AudioManager('${getDemoBaseURL()}/sound');
   AudioSource audioSource = audioManager.makeSource('game');
@@ -77,24 +77,26 @@ main() {
     cars.add(car);
   }
 
+  displayCars() {
+    clear() {
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    }
+
+    clear();
+    var i;
+    for (var i = 0; i <cars.length; i++) {
+      cars[i].move(redCar);
+      cars[i].draw();
+    }
+    redCar.draw();
+  }
+
+  displayCars();
+
   // Redraw every carCount ms.
   new Timer.repeating(carCount < 20 ? carCount : carCount - 16,
-    (t) {
-    if (!stopped) {
-      clear() {
-        context.fillStyle = "#ffffff";
-        context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-      }
-
-      clear();
-      var i;
-      for (var i = 0; i <cars.length; i++) {
-        cars[i].move(redCar);
-        cars[i].draw();
-      }
-      redCar.draw();
-    }
-  });
+    (t) => stopped ? null : displayCars());
 
   // active time
   new Timer.repeating(1000, (t) {
@@ -114,5 +116,6 @@ main() {
       timeMinSecLabel.text = '${timeInMinutes} : ${timeInSeconds}';
     }
   });
+
 }
 

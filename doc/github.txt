@@ -107,6 +107,8 @@ s00:
 s01: if collision, change red car
 s02: improve collision verification
 s03: add collision sound
+s04: add score and time; draw rectangles as cars
+s05: cars speed input; stop button
 
 -------------------------------------------------------------------------------
 

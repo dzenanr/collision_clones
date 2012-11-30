@@ -110,6 +110,7 @@ s02: improve collision verification
 s03: add collision sound
 s04: add score and time; draw rectangles as cars
 s05: cars speed input; stop button
+s06: add car git labels; display git command descriptions
 
 -------------------------------------------------------------------------------
 

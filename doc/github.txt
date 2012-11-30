@@ -6,6 +6,7 @@ https://github.com/
 http://www.codeschool.com/courses/try-git
 http://git-scm.com/videos
 http://marklodato.github.com/visual-git-guide/index-en.html
+http://www.siteground.com/tutorials/git/commands.htm
 
 Education
 

@@ -62,7 +62,6 @@ main() {
   var audioManager = new AudioManager('${getDemoBaseURL()}/sound');
   AudioSource audioSource = audioManager.makeSource('game');
   audioSource.positional = false;
-  //AudioClip collisionSound = audioManager.makeClip('collision', 'beep.mp3');
   AudioClip collisionSound = audioManager.makeClip('collision', 'collision.ogg');
   collisionSound.load();
 
@@ -136,7 +135,6 @@ main() {
   }
 
   displayCars();
-
 
   // Redraw every carCount ms.
   new Timer.repeating(carCount < 20 ? carCount : carCount - 16,

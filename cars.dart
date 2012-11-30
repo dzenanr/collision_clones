@@ -139,7 +139,6 @@ class RedCar extends Car {
   smaller(Car car) {
     if (big) {
       small = true;
-      //audioManager.playClipFromSource('game', 'collision');
       audioManager.playClipFromSourceIn(0.0, 'game', 'collision');
       colorCode = smallColorCode;
       width = smallWidth;

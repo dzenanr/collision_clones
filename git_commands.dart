@@ -1,6 +1,6 @@
 part of game_cars;
 
-// http://www.siteground.com/tutorials/git/commands.htm
+// based on http://www.siteground.com/tutorials/git/commands.htm
 
 Map<String, String> gitMap() {
   return {

@@ -1,6 +1,6 @@
 
 body {
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: normal;
@@ -8,8 +8,19 @@ body {
   margin: 15px;
 }
 
+button {
+  padding: 1px;
+  background: #ffcc99;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+  border-style: outset;
+  border-color: #d7b9c9;
+  font-weight: bold;
+  text-align: center;
+}
+
 p {
-  color: #333;
+  color: #333333;
 }
 
 .marker {

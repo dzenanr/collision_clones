@@ -1,8 +1,8 @@
 part of game_cars;
 
-double randomDouble(double max) {
-  double randomDouble = new Random().nextDouble() * max;
-  return randomDouble > max ? max : randomDouble;
+num randomNum(num max) {
+  num random = new Random().nextDouble() * max;
+  return random > max ? max : random;
 }
 
 int randomInt(int max) => new Random().nextInt(max);

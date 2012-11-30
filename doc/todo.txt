@@ -1,12 +1,10 @@
 To do
 
-+ check the rapid increase in collisions
++ check the rapid increase in collisions (only when the red car is small)
 + avoid collisions of other (other than the red car) cars
-+ if the number of collisions is greater than the number of seconds, you loose
 + save the best score in a local storage
 + use images for cars
 + rotate a car to follow its move direction
 + parametrize the number of cars
-+ parametrize the size of cars 
-+ parametrize the speed of cars 
++ parametrize the size of cars  
 + introduce levels

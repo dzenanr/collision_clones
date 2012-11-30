@@ -8,6 +8,7 @@ import 'package:simple_audio/simple_audio.dart';
 
 part 'cars.dart';
 part 'color.dart';
+part 'git_commands.dart';
 part 'random.dart';
 
 String getDemoBaseURL() {
@@ -20,15 +21,43 @@ String getDemoBaseURL() {
   }
 }
 
+DivElement gitDiv(String gitCommand) {
+  DivElement gitDiv = new Element.tag('div');
+  gitDiv.id = '${gitCommand}';
+  gitDiv.innerHTML = '${gitCommand}: ${gitMap()[gitCommand]}';
+  return gitDiv;
+}
+
+String gitUl(List gitCommands) {
+    var ul = '''
+      <ul class="target">
+    ''';
+    for (String gitCommand in gitCommands) {
+      ul = '''
+        ${ul}
+        <li>
+          ${gitDiv(gitCommand).outerHTML}
+        </li>
+      ''';
+    }
+    ul = '''
+      ${ul}
+      </ul>
+    ''';
+    return ul;
+  }
+
 main() {
   const int carCount = 8;
   const String play = 'Play';
   const String stop = 'Stop';
   const String restart = 'Restart';
+  const String gitClone = 'git clone';
 
   int timeInMinutes = 0;
   int timeInSeconds = 0;
   bool stopped = true;
+  int cloneCollisionCount = 0;
 
   var audioManager = new AudioManager('${getDemoBaseURL()}/sound');
   AudioSource audioSource = audioManager.makeSource('game');
@@ -42,12 +71,13 @@ main() {
   var redCar = new RedCar(canvas, audioManager);
   List<Car> cars;
 
+  Element gitSection = document.query('#git');
   LabelElement collisionCountLabel = document.query('#collision');
   LabelElement timeMinSecLabel = document.query('#time');
   LabelElement lostLabel = document.query('#lost');
   lostLabel.text = ' ';
   InputElement speedInput = document.query('#speed');
-  speedInput.valueAsNumber = Car.speed;
+  speedInput.valueAsNumber = redCar.speed;
   speedInput.on.input.add((Event e) {
     for (Car car in cars) {
       car.dx = randomNum(speedInput.valueAsNumber);
@@ -63,6 +93,7 @@ main() {
         timeInMinutes = 0;
         timeInSeconds = 0;
         lostLabel.text = ' ';
+        redCar.clearGitCommands();
       }
       stopButton.text = stop;
     } else {
@@ -90,9 +121,22 @@ main() {
       cars[i].draw();
     }
     redCar.draw();
+    if (redCar.collisionCount > 0 &&
+        redCar.collisionCount != cloneCollisionCount) {
+      num remainder = redCar.collisionCount % 6;
+      if (remainder == 0) {
+        cloneCollisionCount = redCar.collisionCount;
+        var car = new Car(canvas);
+
+        car.label = gitClone;
+        cars.add(car);
+        redCar.addGitCommand(gitClone);
+      }
+    }
   }
 
   displayCars();
+
 
   // Redraw every carCount ms.
   new Timer.repeating(carCount < 20 ? carCount : carCount - 16,
@@ -101,6 +145,8 @@ main() {
   // active time
   new Timer.repeating(1000, (t) {
     if (!stopped && redCar.big) {
+      gitSection.innerHTML = gitUl(redCar.gitCommands);
+
       int collisionCount = redCar.collisionCount;
       collisionCountLabel.text = collisionCount.toString();
       timeInSeconds++;

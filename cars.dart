@@ -1,7 +1,8 @@
 part of game_cars;
 
 class Car {
-  static const num speed = 2;
+  num speed = 2;
+  int fontSize = 12;
 
   num x;
   num y;
@@ -15,6 +16,7 @@ class Car {
   CanvasRenderingContext2D context;
 
   String colorCode;
+  String label = '';
 
   Car(this.canvas) {
     context = canvas.getContext('2d');
@@ -49,6 +51,13 @@ class Car {
     context.rect(x + width - 20, y + height - 2, 10, 4);
     context.fill();
     context.closePath();
+    // label
+    context.beginPath();
+    context.font = 'bold ${fontSize}px sans-serif';
+    context.textAlign = 'start';
+    context.textBaseline = 'top';
+    context.fillText(label, x + 4, y + 4, width - label.length - 4);
+    context.closePath();
   }
 
   move(RedCar redCar) {
@@ -78,6 +87,8 @@ class RedCar extends Car {
   bool small = false;
   bool get big => !small;
 
+  var _gitCommands = new List<String>();
+
   RedCar(canvas, this.audioManager) : super(canvas) {
     colorCode = bigColorCode;
     width = bigWidth;
@@ -104,6 +115,18 @@ class RedCar extends Car {
     });
   }
 
+  List<String> get gitCommands => _gitCommands;
+
+  addGitCommand(String gitCommand) {
+    if (!_gitCommands.contains(gitCommand)) {
+      _gitCommands.add(gitCommand);
+    }
+  }
+
+  clearGitCommands() {
+    _gitCommands.clear();
+  }
+
   bigger() {
     if (small) {
       small = false;
@@ -113,7 +136,7 @@ class RedCar extends Car {
     }
   }
 
-  smaller() {
+  smaller(Car car) {
     if (big) {
       small = true;
       //audioManager.playClipFromSource('game', 'collision');
@@ -122,6 +145,10 @@ class RedCar extends Car {
       width = smallWidth;
       height = smallHeight;
       collisionCount++;
+
+      String gitCommand = randomGit();
+      car.label = gitCommand;
+      addGitCommand(gitCommand);
     }
   }
 
@@ -129,19 +156,19 @@ class RedCar extends Car {
     if (big) {
       if (car.x < x  && car.y < y) {
         if (car.x + car.width >= x && car.y + car.height >= y) {
-          smaller();
+          smaller(car);
         }
       } else if (car.x > x  && car.y < y) {
         if (car.x <= x + width && car.y + car.height >= y) {
-          smaller();
+          smaller(car);
         }
       } else if (car.x < x  && car.y > y) {
         if (car.x + car.width >= x && car.y <= y + height) {
-          smaller();
+          smaller(car);
         }
       } else if (car.x > x  && car.y > y) {
         if (car.x <= x + width && car.y <= y + height) {
-          smaller();
+          smaller(car);
         }
       }
     }

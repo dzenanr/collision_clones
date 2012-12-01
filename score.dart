@@ -1,19 +1,21 @@
 part of collision_clones;
 
 class Score {
-  static const num startSpeed = 2;
+  static const String startSpeed = '2';
+  static const String localStorageKey = 'best scores for collision clones';
 
-  var score = new Map<num, Map<String, num>>();
-  num _currentSpeed;
+  var score = new Map<String, Map<String, num>>();
+  String _currentSpeed;
 
   Score() {
     _currentSpeed = startSpeed;
     zero();
   }
 
-  Score.fromMap(Map<num, Map<String, num>> map) {
+  Score.fromMap(Map<String, Map<String, num>> map) {
     _currentSpeed = startSpeed;
-    score = map;
+    //score = map;
+    map.forEach((k,v) => score[k] = v);
   }
 
   Score.fromScore(Score other) {
@@ -21,8 +23,8 @@ class Score {
     update(other.collisionCount, other.minutes, other.seconds);
   }
 
-  num get currentSpeed => _currentSpeed;
-  set currentSpeed(num speed) {
+  String get currentSpeed => _currentSpeed;
+  set currentSpeed(String speed) {
     _currentSpeed = speed;
     zero();
   }
@@ -34,6 +36,21 @@ class Score {
   num get collisionCount => score[currentSpeed]['collisionCount'];
   num get minutes => score[currentSpeed]['minutes'];
   num get seconds => score[currentSpeed]['seconds'];
+
+  load() {
+    String bestScoresString = window.localStorage[localStorageKey];
+    if (bestScoresString != null) {
+      print('load best scores: ${bestScoresString}');
+      Map<String, Map<String, num>> bestScoresMap = JSON.parse(bestScoresString);
+      bestScoresMap.forEach((k,v) => score[k] = v);
+    }
+  }
+
+  save() {
+    String bestScoresString = JSON.stringify(score);
+    print('save bests scores: ${bestScoresString}');
+    window.localStorage[localStorageKey] = bestScoresString;
+  }
 
   update(num collisionCount, num minutes, num seconds) {
     var currentScore = score[currentSpeed];
@@ -68,6 +85,15 @@ class Score {
   set seconds(num seconds) =>
       score[currentSpeed]['seconds'] = seconds;
   */
+
+  bool betterThan(Score other) {
+    num thisSeconds = minutes * 60 + seconds;
+    num otherSeconds = other.minutes * 60 + other.seconds;
+    if (thisSeconds > otherSeconds) {
+      return true;
+    }
+    return false;
+  }
 
   display() {
     score.forEach((k,v) => print('${k}: ${v}'));

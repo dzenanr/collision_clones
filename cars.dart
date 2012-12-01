@@ -56,13 +56,16 @@ abstract class Rectangle {
 }
 
 class Car extends Rectangle {
-  num speed;
+  static const String gitClone = 'git clone';
+
+  String speed;
   num dx;
   num dy;
 
   Car(canvas, this.speed) : super(canvas) {
-    dx = randomNum(speed);
-    dy = randomNum(speed);
+    var speedNumber = int.parse(speed);
+    dx = randomNum(speedNumber);
+    dy = randomNum(speedNumber);
   }
 
   move(RedCar redCar) {

@@ -1,4 +1,4 @@
-part of game_cars;
+part of collision_clones;
 
 abstract class Rectangle {
   num x;

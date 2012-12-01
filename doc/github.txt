@@ -1,4 +1,4 @@
-github.txt for game_cars 
+github.txt for collision_clones 
 
 GitHub, Git
 
@@ -28,18 +28,18 @@ http://help.github.com/create-a-repo/
 
 Create a New Repo at GitHub 
 (without README, since cloning will not be used).
-Repository Name: game_cars
+Repository Name: collision_clones
 Description: 
   Create a canvas game with moving rectangles of different sizes and colors, 
   whose objective is to move out the red rectangle without accidents.
       
 Next steps:
-  cd git/dart/game/game_cars
+  cd git/dart/game/collision_clones
   git init
   git status
   git add .
   git commit -m 'initial version'
-  git remote add origin https://github.com/dzenanr/game_cars.git
+  git remote add origin https://github.com/dzenanr/collision_clones.git
   git push -u origin master     
 
 -------------------------------------------------------------------------------
@@ -49,14 +49,14 @@ Git with Git Bash
 Clone a remote repository into a local repository.
 
 cd git/dart/game
-git clone https://github.com/dzenanr/game_cars.git
-cd game_cars
+git clone https://github.com/dzenanr/collision_clones.git
+cd collision_clones
 
 Read+Write:
-https://github.com/dzenanr/game_cars.git
+https://github.com/dzenanr/collision_clones.git
 
 Read only:
-git://github.com/dzenanr/game_cars.git
+git://github.com/dzenanr/collision_clones.git
 
 Get the latest changes from the remote repository
 
@@ -68,7 +68,7 @@ git pull origin master
 
 Work with a local repository
 
-cd git/dart/game/game_cars
+cd git/dart/game/collision_clones
 
 git status
 

@@ -1,0 +1,87 @@
+
+a:link {
+  text-decoration: none;
+  font-weight: bold;
+  color: #003366;
+}
+
+a:visited {
+  text-decoration: none;
+  font-weight: bold;
+  color: #c50000;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #d9ece2;
+  background: #663117;
+}
+
+body {
+  background-color: #f8f8f8;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2em;
+  margin: 15px;
+}
+
+button {
+  padding: 1px;
+  background: #ffcc99;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+  border-style: outset;
+  border-color: #d7b9c9;
+  font-weight: bold;
+  text-align: center;
+}
+
+p {
+  color: #333333;
+}
+
+ul {
+  list-style: none;
+  padding: 2px;
+  text-align: left;
+}
+
+li {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 18px;
+}
+
+.link li {
+  background: url(img/arrow-right.gif) no-repeat 0 50%;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 18px;
+}
+
+.target li {
+  background: url(img/target.gif) no-repeat 0 50%;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 18px;
+}
+
+.git {
+  font-family: arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #8a4b08;
+}
+
+.marker {
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #003366;
+  background: #ffe4b5;
+  padding-left: 1px;
+  padding-right: 1px;
+  margin-left: 1px;
+  margin-right: 1px;
+}

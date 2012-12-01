@@ -1,4 +1,4 @@
-part of game_cars;
+part of collision_clones;
 
 // based on http://www.siteground.com/tutorials/git/commands.htm
 

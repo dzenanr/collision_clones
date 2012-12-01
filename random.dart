@@ -1,4 +1,4 @@
-part of game_cars;
+part of collision_clones;
 
 num randomNum(num max) {
   num random = new Random().nextDouble() * max;

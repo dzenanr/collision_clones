@@ -11,4 +11,6 @@ Dependent on the
 [simple_audio] (https://github.com/johnmccutchan/simpleaudio) library.
 Use the Pub Manager in Dart Editor.
 
-# ![Alt Collision Clones] (https://raw.github.com/dzenanr/game_cars/master/img/screenshot.png)
+Spiral 06 used as a GitHub game competition [entry] (https://github.com/dzenanr/game-off-2012) for 2012.
+
+# ![Alt Collision Clones] (https://raw.github.com/dzenanr/collision_clones/master/img/screenshot.png)

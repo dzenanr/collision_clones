@@ -111,6 +111,7 @@ s03: add collision sound
 s04: add score and time; draw rectangles as cars
 s05: cars speed input; stop button
 s06: add car git labels; display git command descriptions
+s07: add the best score per speed and save the best scores to local storage
 
 -------------------------------------------------------------------------------
 

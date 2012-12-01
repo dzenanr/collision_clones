@@ -11,5 +11,4 @@ Dependent on the
 [simple_audio] (https://github.com/johnmccutchan/simpleaudio) library.
 Use the Pub Manager in Dart Editor.
 
-# ![Alt Collision Clones] 
-(https://raw.github.com/dzenanr/game_cars/master/img/screenshot.png)
+# ![Alt Collision Clones] (https://raw.github.com/dzenanr/game_cars/master/img/screenshot.png)

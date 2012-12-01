@@ -1,4 +1,22 @@
 
+a:link {
+  text-decoration: none;
+  font-weight: bold;
+  color: #003366;
+}
+
+a:visited {
+  text-decoration: none;
+  font-weight: bold;
+  color: #c50000;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #d9ece2;
+  background: #663117;
+}
+
 body {
   background-color: #f8f8f8;
   font-family: 'Open Sans', sans-serif;

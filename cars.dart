@@ -1,27 +1,20 @@
 part of game_cars;
 
-class Car {
-  num speed = 2;
-  int fontSize = 12;
-
+abstract class Rectangle {
   num x;
   num y;
   num width;
   num height;
 
-  num dx;
-  num dy;
-
-  CanvasElement canvas;
-  CanvasRenderingContext2D context;
-
   String colorCode;
   String label = '';
 
-  Car(this.canvas) {
+  CanvasElement canvas;
+  CanvasRenderingContext2D context;
+  num fontSize = 12;
+
+  Rectangle(this.canvas) {
     context = canvas.getContext('2d');
-    dx = randomNum(speed);
-    dy = randomNum(speed);
 
     width = 75;
     height = 30;
@@ -60,6 +53,18 @@ class Car {
     context.closePath();
   }
 
+}
+
+class Car extends Rectangle {
+  num speed;
+  num dx;
+  num dy;
+
+  Car(canvas, this.speed) : super(canvas) {
+    dx = randomNum(speed);
+    dy = randomNum(speed);
+  }
+
   move(RedCar redCar) {
     x += dx;
     y += dy;
@@ -72,7 +77,7 @@ class Car {
 
 }
 
-class RedCar extends Car {
+class RedCar extends Rectangle {
   static const num bigWidth = 90;
   static const num bigHeight = 36;
   static const String bigColorCode = '#ff0000';
@@ -82,7 +87,7 @@ class RedCar extends Car {
   static const String smallColorCode = '#000000';
 
   AudioManager audioManager;
-  int collisionCount = 0;
+  num collisionCount = 0;
 
   bool small = false;
   bool get big => !small;
@@ -93,6 +98,7 @@ class RedCar extends Car {
     colorCode = bigColorCode;
     width = bigWidth;
     height = bigHeight;
+    label = 'GitHub';
     canvas.document.on.mouseMove.add((MouseEvent e) {
       x = e.offsetX - 35;
       y = e.offsetY - 35;

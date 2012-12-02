@@ -2,8 +2,9 @@
 
 **Categories**: education, Dart, canvas, game, git, GitHub.
 
-**Description**: a game with moving cars of different sizes and colors, 
-whose objective is to move the red car without collisions. 
+**Description**: 
+Collision Clones is a game with moving cars of different sizes and colors, 
+whose objective is to move the red car as long as possible. 
 You loose if the number of collisions is greater than the time in seconds.
 After a certain number of collisions, clone cars appear.
 

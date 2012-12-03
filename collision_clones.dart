@@ -13,7 +13,7 @@ part 'git_commands.dart';
 part 'random.dart';
 part 'score.dart';
 
-String getDemoBaseURL() {
+String demoBaseUrl() {
   String location = window.location.href;
   int slashIndex = location.lastIndexOf('/');
   if (slashIndex < 0) {
@@ -58,7 +58,7 @@ displayCars(CanvasElement canvas, RedCar redCar, List<Car> cars, Score score) {
   clear(canvas);
   var i;
   for (var i = 0; i <cars.length; i++) {
-    cars[i].move(redCar);
+    cars[i].move(redCar, cars);
     cars[i].draw();
   }
   redCar.draw();
@@ -66,8 +66,10 @@ displayCars(CanvasElement canvas, RedCar redCar, List<Car> cars, Score score) {
       redCar.collisionCount != score.collisionCount) {
     num remainder = redCar.collisionCount % 6;
     if (remainder == 0) {
-      // see what happens when the next line is in comment
-      score.update(redCar.collisionCount, score.minutes, score.seconds);
+      var random = randomNum(score.currentTimeLimit * 60).round();
+      if (random != score.minutes * 60 + score.seconds) {
+        score.update(redCar.collisionCount, score.minutes, score.seconds);
+      }
       var car = new Car(canvas, score.currentSpeed);
       car.label = Car.gitClone;
       cars.add(car);
@@ -86,7 +88,7 @@ main() {
   var score = new Score();
   var bestScore = new Score();
 
-  var audioManager = new AudioManager('${getDemoBaseURL()}/sound');
+  var audioManager = new AudioManager('${demoBaseUrl()}/sound');
   AudioSource audioSource = audioManager.makeSource('game');
   audioSource.positional = false;
   AudioClip collisionSound = audioManager.makeClip('collision', 'collision.ogg');
@@ -101,15 +103,20 @@ main() {
   LabelElement bestCollisionCountLabel = document.query('#best-collision-count');
   LabelElement bestTimeLabel = document.query('#best-time');
 
+  showBest() {
+    bestSpeedLabel.text = bestScore.currentSpeed;
+    bestCollisionCountLabel.text = bestScore.collisionCount.toString();
+    bestTimeLabel.text = '${bestScore.minutes} : ${bestScore.seconds}';
+  }
+
   InputElement speedInput = document.query('#speed');
+  speedInput.width = 2;
   speedInput.value = score.currentSpeed;
   speedInput.on.input.add((Event e) {
     score.currentSpeed = speedInput.value;
     bestScore.currentSpeed = speedInput.value;
     bestScore.load();
-    bestSpeedLabel.text = bestScore.currentSpeed;
-    bestCollisionCountLabel.text = bestScore.collisionCount.toString();
-    bestTimeLabel.text = '${bestScore.minutes} : ${bestScore.seconds}';
+    showBest();
     redCar.collisionCount = 0;
     for (Car car in cars) {
       car.dx = randomNum(speedInput.valueAsNumber);
@@ -118,6 +125,19 @@ main() {
   });
   LabelElement collisionCountLabel = document.query('#collision-count');
   LabelElement timeLabel = document.query('#time');
+  InputElement timeLimitInput = document.query('#time-limit');
+  timeLimitInput.width = 2;
+  timeLimitInput.valueAsNumber = Score.timeLimit;
+  timeLimitInput.on.input.add((Event e) {
+    score.currentTimeLimit = timeLimitInput.valueAsNumber;
+    bestScore.load();
+    showBest();
+    redCar.collisionCount = 0;
+    for (Car car in cars) {
+      car.dx = randomNum(timeLimitInput.valueAsNumber);
+      car.dy = randomNum(timeLimitInput.valueAsNumber);
+    }
+  });
   LabelElement lostLabel = document.query('#lost');
   lostLabel.text = ' ';
   ButtonElement stopButton = document.query('#stop');
@@ -134,15 +154,15 @@ main() {
     } else {
       stopped = true;
       stopButton.text = play;
+      showBest();
     }
   });
 
   Element gitSection = document.query('#git');
 
-  bestScore.load();
-  bestSpeedLabel.text = bestScore.currentSpeed;
-  bestCollisionCountLabel.text = bestScore.collisionCount.toString();
-  bestTimeLabel.text = '${bestScore.minutes} : ${bestScore.seconds}';
+  if (bestScore.load()) {
+    showBest();
+  }
 
   cars = new List();
   for (var i = 0; i < carCount; i++) {
@@ -176,12 +196,24 @@ main() {
         stopped = true;
         stopButton.text = 'Restart';
         lostLabel.text = 'You lost.';
-        if (score.betterThan(bestScore)) {
+        if (score.betterTimeThan(bestScore)) {
           bestScore.update(collisionCount, minutes, seconds);
           bestScore.save();
-          bestSpeedLabel.text = bestScore.currentSpeed;
-          bestCollisionCountLabel.text = bestScore.collisionCount.toString();
-          bestTimeLabel.text = '${bestScore.minutes} : ${bestScore.seconds}';
+          showBest();
+        }
+      } else if (minutes == score.currentTimeLimit) {
+        stopped = true;
+        stopButton.text = 'Restart';
+        lostLabel.text = 'You won.';
+        if (score.betterTimeThan(bestScore)) {
+          bestScore.update(collisionCount, minutes, seconds);
+          bestScore.save();
+          showBest();
+        } else if (score.equalTime(bestScore) &&
+            score.betterCollisionCountThan(bestScore)) {
+          bestScore.update(collisionCount, minutes, seconds);
+          bestScore.save();
+          showBest();
         }
       }
     }

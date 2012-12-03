@@ -31,21 +31,22 @@
 
     <p>
       Collision Clones is a game with moving cars of different sizes and colors,
-      whose objective is to move the red car as long as possible.
+      whose objective is to move the red car within the time limit with few collisions.
       You loose if the number of collisions is greater than the time in seconds.
       After a certain number of collisions, clone cars appear.
     </p>
 
     <section>
       Best: speed <label id="best-speed" class="marker">0</label>
-      collision count <label id="best-collision-count" class="marker">0</label>
+      collisions <label id="best-collision-count" class="marker">0</label>
       time <label id="best-time" class="marker">0</label>
     </section>
 
     <section>
       speed <input type="number" id="speed" min="1" size="2"/>
-      collision count <label id="collision-count" class="marker">0</label>
+      collisions <label id="collision-count" class="marker">0</label>
       time <label id="time" class="marker">0</label>
+      time limit <input type="number" id="time-limit" min="1" />
       <label id="lost" class="marker"></label>
       <button id="stop">Play</button>
     </section>

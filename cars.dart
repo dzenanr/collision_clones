@@ -1,6 +1,6 @@
 part of collision_clones;
 
-abstract class Rectangle {
+abstract class RoundedCornerRectangle {
   num x;
   num y;
   num width;
@@ -13,7 +13,7 @@ abstract class Rectangle {
   CanvasRenderingContext2D context;
   num fontSize = 12;
 
-  Rectangle(this.canvas) {
+  RoundedCornerRectangle(this.canvas) {
     context = canvas.getContext('2d');
 
     width = 75;
@@ -26,22 +26,42 @@ abstract class Rectangle {
     colorCode = randomColorCode();
   }
 
+  roundedCorners(context, sx, sy, ex, ey, r) {
+    // based on
+    // http://stackoverflow.com/questions/1255512/how-to-draw-a-rounded-rectangle-on-html-canvas
+    var r2d = PI/180;
+    //ensure that the radius isn't too large for x
+    if ((ex - sx) - (2 * r) < 0) {r = (( ex - sx ) / 2);}
+    //ensure that the radius isn't too large for y
+    if ((ey - sy) - (2 * r) < 0 ) {r = ((ey - sy) / 2 );}
+    context.moveTo(sx + r, sy);
+    context.lineTo(ex - r, sy);
+    context.arc(ex - r, sy + r, r, r2d * 270, r2d * 360, false);
+    context.lineTo(ex, ey - r);
+    context.arc(ex - r, ey - r, r, r2d * 0, r2d * 90, false);
+    context.lineTo(sx + r, ey);
+    context.arc(sx + r, ey - r, r, r2d * 90, r2d * 180, false);
+    context.lineTo(sx, sy + r);
+    context.arc(sx + r, sy + r, r, r2d * 180, r2d * 270, false);
+}
+
   draw() {
     context.beginPath();
     context.fillStyle = colorCode;
     context.strokeStyle = 'black';
     context.lineWidth = 2;
-    context.rect(x, y, width, height);
+    //context.rect(x, y, width, height);
+    roundedCorners(context, x, y, x + width, y + height, 10);
     context.fill();
     context.stroke();
     context.closePath();
     // wheels
     context.beginPath();
     context.fillStyle = '#000000';
-    context.rect(x + 10, y - 2, 10, 6);
-    context.rect(x + width - 20, y - 2, 10, 4);
-    context.rect(x + 10, y + height - 2, 10, 4);
-    context.rect(x + width - 20, y + height - 2, 10, 4);
+    context.rect(x + 12, y - 3, 14, 6);
+    context.rect(x + width - 26, y - 3, 14, 6);
+    context.rect(x + 12, y + height - 3, 14, 6);
+    context.rect(x + width - 26, y + height - 3, 14, 6);
     context.fill();
     context.closePath();
     // label
@@ -55,7 +75,7 @@ abstract class Rectangle {
 
 }
 
-class Car extends Rectangle {
+class Car extends RoundedCornerRectangle {
   static const String gitClone = 'git clone';
 
   String speed;
@@ -68,19 +88,48 @@ class Car extends Rectangle {
     dy = randomNum(speedNumber);
   }
 
-  move(RedCar redCar) {
+  move(RedCar redCar, List<Car> cars) {
     x += dx;
     y += dy;
     if (redCar.big) {
       redCar.collision(this);
     }
+    for (Car car in cars) {
+      if (car != this) {
+        car.collision(this);
+      }
+    }
     if (x > canvas.width || x < 0) dx = -dx;
     if (y > canvas.height || y < 0) dy = -dy;
   }
 
+  collision(Car car) {
+    if (car.x < x  && car.y < y) {
+      if (car.x + car.width >= x && car.y + car.height >= y) {
+        dx = -dx; dy = -dy;
+        car.dx = -car.dx; car.dy = -car.dy;
+      }
+    } else if (car.x > x  && car.y < y) {
+      if (car.x <= x + width && car.y + car.height >= y) {
+        dx = -dx; dy = -dy;
+        car.dx = -car.dx; car.dy = -car.dy;
+      }
+    } else if (car.x < x  && car.y > y) {
+      if (car.x + car.width >= x && car.y <= y + height) {
+        dx = -dx; dy = -dy;
+        car.dx = -car.dx; car.dy = -car.dy;
+      }
+    } else if (car.x > x  && car.y > y) {
+      if (car.x <= x + width && car.y <= y + height) {
+        dx = -dx; dy = -dy;
+        car.dx = -car.dx; car.dy = -car.dy;
+      }
+    }
+  }
+
 }
 
-class RedCar extends Rectangle {
+class RedCar extends RoundedCornerRectangle {
   static const num bigWidth = 90;
   static const num bigHeight = 36;
   static const String bigColorCode = '#ff0000';

@@ -4,7 +4,7 @@
 
 **Description**: 
 Collision Clones is a game with moving cars of different sizes and colors, 
-whose objective is to move the red car as long as possible. 
+whose objective is to move the red car within the time limit with few collisions. 
 You loose if the number of collisions is greater than the time in seconds.
 After a certain number of collisions, clone cars appear.
 

@@ -1,9 +1,12 @@
 To do
 
 + check the rapid increase in collisions (only when the red car is small)
-+ avoid collisions of other (other than the red car) cars
++ click on the red car to start moving it and click again to leave it
++ include the number of other cars in the score
++ every 1 minute if you have less than 10 collisions you get a GitHub badge
 + use images for cars
 + rotate a car to follow its move direction
++ parametrize when a new car will appear after a certain number of collisions
 + parametrize the number of cars
 + parametrize the size of cars  
 

@@ -134,6 +134,7 @@ main() {
     bestScore.load();
     showBest();
     redCar.collisionCount = 0;
+    redCar.movable = false;
     for (Car car in cars) {
       car.dx = randomNum(speedInput.valueAsNumber);
       car.dy = randomNum(speedInput.valueAsNumber);
@@ -149,6 +150,7 @@ main() {
     bestScore.load();
     showBest();
     redCar.collisionCount = 0;
+    redCar.movable = false;
     for (Car car in cars) {
       car.dx = randomNum(timeLimitInput.valueAsNumber);
       car.dy = randomNum(timeLimitInput.valueAsNumber);

@@ -3,7 +3,7 @@ part of collision_clones;
 class Score {
   static const String startSpeed = '2';
   static const num timeLimit = 3; // in minutes
-  static const String localStorageKey = 'best-scores-per-speed';
+  static const String localStorageKey = 'best_scores_per_speed';
 
   var score = new Map<String, Map<String, num>>();
   String _currentSpeed;
@@ -46,6 +46,7 @@ class Score {
   num get collisionCount => score[currentSpeed]['collisionCount'];
   num get minutes => score[currentSpeed]['minutes'];
   num get seconds => score[currentSpeed]['seconds'];
+  num get carCount => score[currentSpeed]['carCount'];
 
   bool load() {
     String bestScoresString = window.localStorage[localStorageKey];
@@ -60,21 +61,27 @@ class Score {
 
   save() {
     String bestScoresString = JSON.stringify(score);
-    //print('save bests scores: ${bestScoresString}');
+    print('save bests scores: ${bestScoresString}');
     window.localStorage[localStorageKey] = bestScoresString;
   }
 
-  update(num collisionCount, num minutes, num seconds) {
+  update(num collisionCount, num minutes, num seconds, [num carCount]) {
     var currentScore = score[currentSpeed];
     if (currentScore != null) {
       score[currentSpeed]['collisionCount'] = collisionCount;
       score[currentSpeed]['minutes'] = minutes;
       score[currentSpeed]['seconds'] = seconds;
+      if (carCount != null) {
+        score[currentSpeed]['carCount'] = carCount;
+      }
     } else {
       var speedScore = new Map<String, num>();
       speedScore['collisionCount'] = collisionCount;
       speedScore['minutes'] = minutes;
       speedScore['seconds'] = seconds;
+      if (carCount != null) {
+        speedScore['carCount'] = carCount;
+      }
       score[currentSpeed] = speedScore;
     }
   }
@@ -102,6 +109,20 @@ class Score {
       return true;
     }
     if (collisionCount < other.collisionCount) {
+      return true;
+    }
+    return false;
+  }
+
+  bool equalCollisionCount(Score other) {
+    if (collisionCount == other.collisionCount) {
+      return true;
+    }
+    return false;
+  }
+
+  bool betterCarCountThan(Score other) {
+    if (carCount > other.carCount) {
       return true;
     }
     return false;

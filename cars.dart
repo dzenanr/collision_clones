@@ -143,6 +143,7 @@ class RedCar extends RoundedCornerRectangle {
 
   bool small = false;
   bool get big => !small;
+  bool movable = false;
 
   var _gitCommands = new List<String>();
 
@@ -151,24 +152,32 @@ class RedCar extends RoundedCornerRectangle {
     width = bigWidth;
     height = bigHeight;
     label = 'GitHub';
+    canvas.document.on.mouseDown.add((MouseEvent e) {
+      movable = !movable;
+      if (small) {
+        bigger();
+      }
+    });
     canvas.document.on.mouseMove.add((MouseEvent e) {
-      x = e.offsetX - 35;
-      y = e.offsetY - 35;
-      if (x > canvas.width) {
-        bigger();
-        x = canvas.width - 20;
-      }
-      if (x < 0) {
-        bigger();
-        x = 20 - width;
-      }
-      if (y > canvas.height) {
-        bigger();
-        y = canvas.height - 20;
-      }
-      if (y < 0) {
-        bigger();
-        y = 20 - height;
+      if (movable) {
+        x = e.offsetX - 35;
+        y = e.offsetY - 35;
+        if (x > canvas.width) {
+          bigger();
+          x = canvas.width - 20;
+        }
+        if (x < 0) {
+          bigger();
+          x = 20 - width;
+        }
+        if (y > canvas.height) {
+          bigger();
+          y = canvas.height - 20;
+        }
+        if (y < 0) {
+          bigger();
+          y = 20 - height;
+        }
       }
     });
   }
@@ -191,6 +200,7 @@ class RedCar extends RoundedCornerRectangle {
       colorCode = bigColorCode;
       width = bigWidth;
       height = bigHeight;
+      movable = true;
     }
   }
 

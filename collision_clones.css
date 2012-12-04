@@ -41,6 +41,10 @@ p {
   color: #333333;
 }
 
+section {
+  font-weight: bold;
+}
+
 ul {
   list-style: none;
   padding: 2px;

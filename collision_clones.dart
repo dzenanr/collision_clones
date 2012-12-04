@@ -69,12 +69,21 @@ displayCars(CanvasElement canvas, LabelElement carCountLabel,
     num remainder = redCar.collisionCount % 6;
     if (remainder == 0) {
       var random = randomNum(score.currentTimeLimit * 60).round();
-      if (random == 13.0 || random == 39.0 || random == 117.0 ||
-          random != score.minutes * 60 + score.seconds) {
+      if (random != 13.0 && random != score.minutes * 60 + score.seconds) {
         score.update(redCar.collisionCount, score.minutes, score.seconds,
             cars.length);
       }
       var car = new Car(canvas, score.currentSpeed);
+      if (car.dx > 0) {
+        car.dx++;
+      } else {
+        car.dx--;
+      }
+      if (car.dy > 0) {
+        car.dy++;
+      } else {
+        car.dy--;
+      }
       car.label = Car.gitClone;
       cars.add(car);
       redCar.addGitCommand(Car.gitClone);

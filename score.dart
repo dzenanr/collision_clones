@@ -61,7 +61,7 @@ class Score {
 
   save() {
     String bestScoresString = JSON.stringify(score);
-    print('save bests scores: ${bestScoresString}');
+    //print('save bests scores: ${bestScoresString}');
     window.localStorage[localStorageKey] = bestScoresString;
   }
 

@@ -69,7 +69,6 @@ displayCars(CanvasElement canvas, LabelElement carCountLabel,
     num remainder = redCar.collisionCount % 6;
     if (remainder == 0) {
       var random = randomNum(score.currentTimeLimit * 60).round();
-      print('random number: ${random}');
       if (random == 13.0 || random == 39.0 || random == 117.0 ||
           random != score.minutes * 60 + score.seconds) {
         score.update(redCar.collisionCount, score.minutes, score.seconds,
@@ -146,8 +145,10 @@ main() {
       car.dy = randomNum(timeLimitInput.valueAsNumber);
     }
   });
-  LabelElement lostLabel = document.query('#lost');
-  lostLabel.text = ' ';
+  LabelElement carCountLabel = document.query('#car-count');
+
+  LabelElement msgLabel = document.query('#msg');
+  msgLabel.text = ' ';
   ButtonElement stopButton = document.query('#stop');
   stopButton.on.click.add((MouseEvent e) {
     if (stopped) {
@@ -156,7 +157,7 @@ main() {
         score.zero();
         redCar.collisionCount = 0;
         redCar.movable = true;
-        lostLabel.text = ' ';
+        msgLabel.text = ' ';
         redCar.clearGitCommands();
       }
       stopButton.text = stop;
@@ -166,8 +167,6 @@ main() {
       showBest();
     }
   });
-
-  LabelElement carCountLabel = document.query('#car-count');
 
   Element gitSection = document.query('#git');
 
@@ -207,7 +206,7 @@ main() {
       if (collisionCount > minutes * 60 + seconds) {
         stopped = true;
         stopButton.text = 'Restart';
-        lostLabel.text = 'You lost.';
+        msgLabel.text = 'You lost.';
         if (score.betterTimeThan(bestScore)) {
           bestScore.update(collisionCount, minutes, seconds, cars.length);
           bestScore.save();
@@ -216,7 +215,7 @@ main() {
       } else if (minutes == score.currentTimeLimit) {
         stopped = true;
         stopButton.text = 'Restart';
-        lostLabel.text = 'You won.';
+        msgLabel.text = 'You won.';
         if (score.betterTimeThan(bestScore)) {
           bestScore.update(collisionCount, minutes, seconds, cars.length);
           bestScore.save();

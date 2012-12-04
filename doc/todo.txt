@@ -1,5 +1,6 @@
 To do
 
++ write better instructions how to play
 + check the rapid increase in collisions (only when the red car is small)
 + check the red car position when far south and east
 + check car collisions for better avoidance
@@ -9,6 +10,7 @@ To do
 + parametrize when a new car will appear after a certain number of collisions
 + parametrize the number of cars
 + parametrize the size of cars  
++ add users
 + change cars to clouds; change the red car to a (hot air) balloon
   http://www.flickr.com/photos/gatochy/2654172564/
   http://en.wikipedia.org/wiki/Hot_air_balloon

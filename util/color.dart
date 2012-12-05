@@ -45,7 +45,7 @@ List<String> colorList() {
     'wheat',
     'white',
     'yellow'
-  ];                   
+  ];
 }
 
 String randomColor() => randomListElement(colorList());

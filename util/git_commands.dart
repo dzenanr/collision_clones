@@ -56,7 +56,7 @@ String randomGitDescription() => gitMap()[randomGit()];
 DivElement gitDiv(String gitCommand) {
   DivElement gitDiv = new Element.tag('div');
   gitDiv.id = '${gitCommand}';
-  gitDiv.innerHTML = '${gitCommand}: ${gitMap()[gitCommand]}';
+  gitDiv.innerHtml = '${gitCommand}: ${gitMap()[gitCommand]}';
   return gitDiv;
 }
 

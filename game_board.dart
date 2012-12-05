@@ -108,7 +108,7 @@ class Board {
     // active time
     new Timer.repeating(1000, (t) {
       if (!stopped && redCar.big) {
-        gitSection.innerHTML = gitUl(redCar.gitCommands);
+        gitSection.innerHtml = gitUl(redCar.gitCommands);
 
         var collisionCount = redCar.collisionCount;
         var minutes = score.minutes;

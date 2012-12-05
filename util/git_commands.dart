@@ -68,7 +68,7 @@ String gitUl(List gitCommands) {
       ul = '''
         ${ul}
         <li>
-          ${gitDiv(gitCommand).outerHTML}
+          ${gitDiv(gitCommand).outerHtml}
         </li>
       ''';
     }

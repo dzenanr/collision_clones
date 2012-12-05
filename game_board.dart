@@ -58,6 +58,7 @@ class Board {
       bestScore.load();
       bestScoreSection.display();
       redCar.collisionCount = 0;
+      redCar.movable = false;
       for (Car car in cars) {
         car.dx = randomNum(speedLimitInput.valueAsNumber);
         car.dy = randomNum(speedLimitInput.valueAsNumber);
@@ -73,6 +74,7 @@ class Board {
       bestScore.load();
       bestScoreSection.display();
       redCar.collisionCount = 0;
+      redCar.movable = false;
       for (Car car in cars) {
         car.dx = randomNum(timeLimitInput.valueAsNumber);
         car.dy = randomNum(timeLimitInput.valueAsNumber);
@@ -88,6 +90,7 @@ class Board {
         if (pauseButton.text == restart) {
           score.zero();
           redCar.collisionCount = 0;
+          redCar.movable = true;
           msgLabel.text = ' ';
           redCar.clearGitCommands();
         }
@@ -96,6 +99,7 @@ class Board {
         stopped = true;
         pauseButton.text = play;
         bestScoreSection.display();
+        redCar.movable = false;
       }
     });
 

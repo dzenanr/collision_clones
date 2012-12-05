@@ -138,7 +138,7 @@ class RedCar extends RoundedCornerRectangle {
   static const String smallColorCode = '#000000';
 
   AudioManager audioManager;
-  num _collisionCount = 0;
+  num collisionCount = 0;
 
   bool small = false;
   bool get big => !small;
@@ -180,14 +180,6 @@ class RedCar extends RoundedCornerRectangle {
         }
       }
     });
-  }
-
-  num get collisionCount => _collisionCount;
-  set collisionCount(num count) {
-    _collisionCount = count;
-    if (count == 0) {
-      movable = false;
-    }
   }
 
   List<String> get gitCommands => _gitCommands;

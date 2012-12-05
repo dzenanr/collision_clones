@@ -78,12 +78,11 @@ abstract class RoundedCornerRectangle {
 class Car extends RoundedCornerRectangle {
   static const String gitClone = 'git clone';
 
-  String speed;
   num dx;
   num dy;
 
-  Car(canvas, this.speed) : super(canvas) {
-    var speedNumber = int.parse(speed);
+  Car(canvas, speedLimit) : super(canvas) {
+    var speedNumber = int.parse(speedLimit);
     dx = randomNum(speedNumber);
     dy = randomNum(speedNumber);
   }
@@ -139,7 +138,7 @@ class RedCar extends RoundedCornerRectangle {
   static const String smallColorCode = '#000000';
 
   AudioManager audioManager;
-  num collisionCount = 0;
+  num _collisionCount = 0;
 
   bool small = false;
   bool get big => !small;
@@ -147,7 +146,8 @@ class RedCar extends RoundedCornerRectangle {
 
   var _gitCommands = new List<String>();
 
-  RedCar(canvas, this.audioManager) : super(canvas) {
+  RedCar(canvas) : super(canvas) {
+    audioManager = new Audio().audioManager;
     colorCode = bigColorCode;
     width = bigWidth;
     height = bigHeight;
@@ -180,6 +180,14 @@ class RedCar extends RoundedCornerRectangle {
         }
       }
     });
+  }
+
+  num get collisionCount => _collisionCount;
+  set collisionCount(num count) {
+    _collisionCount = count;
+    if (count == 0) {
+      movable = false;
+    }
   }
 
   List<String> get gitCommands => _gitCommands;

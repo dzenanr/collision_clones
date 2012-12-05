@@ -52,3 +52,29 @@ List<String> gitList() {
 String randomGit() => randomListElement(gitList());
 
 String randomGitDescription() => gitMap()[randomGit()];
+
+DivElement gitDiv(String gitCommand) {
+  DivElement gitDiv = new Element.tag('div');
+  gitDiv.id = '${gitCommand}';
+  gitDiv.innerHTML = '${gitCommand}: ${gitMap()[gitCommand]}';
+  return gitDiv;
+}
+
+String gitUl(List gitCommands) {
+  var ul = '''
+      <ul class="target">
+    ''';
+    for (String gitCommand in gitCommands) {
+      ul = '''
+        ${ul}
+        <li>
+          ${gitDiv(gitCommand).outerHTML}
+        </li>
+      ''';
+    }
+    ul = '''
+      ${ul}
+      </ul>
+    ''';
+  return ul;
+}

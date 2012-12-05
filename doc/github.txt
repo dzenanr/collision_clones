@@ -114,6 +114,7 @@ s06: add car git labels; display git command descriptions
 s07: add the best score per speed and save the best scores to local storage
 s08: time limit so that you can win; cars with rounded corners
 s09: a click on the red car makes it unmovable/movable; a best score has a car count
+s10: code reorganization
 
 -------------------------------------------------------------------------------
 

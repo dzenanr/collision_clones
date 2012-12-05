@@ -1,35 +1,35 @@
 part of collision_clones;
 
 class Score {
-  static const String startSpeed = '2';
+  static const String speedLimit = '2'; // upper limit in random speed
   static const num timeLimit = 3; // in minutes
-  static const String localStorageKey = 'best_scores_per_speed';
+  static const String localStorageKey = 'best_score_per_speed';
 
   var score = new Map<String, Map<String, num>>();
-  String _currentSpeed;
+  String _currentSpeedLimit;
   num _currentTimeLimit;
 
   Score() {
-    _currentSpeed = startSpeed;
+    _currentSpeedLimit = speedLimit;
     _currentTimeLimit = timeLimit;
     zero();
   }
 
   Score.fromMap(Map<String, Map<String, num>> map) {
-    _currentSpeed = startSpeed;
+    _currentSpeedLimit = speedLimit;
     _currentTimeLimit = timeLimit;
     map.forEach((k,v) => score[k] = v);
   }
 
   Score.fromScore(Score other) {
-    _currentSpeed = other.currentSpeed;
+    _currentSpeedLimit = other.currentSpeedLimit;
     _currentTimeLimit = other.currentTimeLimit;
     update(other.collisionCount, other.minutes, other.seconds);
   }
 
-  String get currentSpeed => _currentSpeed;
-  set currentSpeed(String speed) {
-    _currentSpeed = speed;
+  String get currentSpeedLimit => _currentSpeedLimit;
+  set currentSpeedLimit(String speed) {
+    _currentSpeedLimit = speed;
     zero();
   }
 
@@ -43,10 +43,10 @@ class Score {
     update(0, 0, 0);
   }
 
-  num get collisionCount => score[currentSpeed]['collisionCount'];
-  num get minutes => score[currentSpeed]['minutes'];
-  num get seconds => score[currentSpeed]['seconds'];
-  num get carCount => score[currentSpeed]['carCount'];
+  num get collisionCount => score[currentSpeedLimit]['collisionCount'];
+  num get minutes => score[currentSpeedLimit]['minutes'];
+  num get seconds => score[currentSpeedLimit]['seconds'];
+  num get carCount => score[currentSpeedLimit]['carCount'];
 
   bool load() {
     String bestScoresString = window.localStorage[localStorageKey];
@@ -61,32 +61,28 @@ class Score {
 
   save() {
     String bestScoresString = JSON.stringify(score);
-    //print('save bests scores: ${bestScoresString}');
     window.localStorage[localStorageKey] = bestScoresString;
   }
 
-  update(num collisionCount, num minutes, num seconds, [num carCount]) {
-    var currentScore = score[currentSpeed];
+  update(num collisionCount, num minutes, num seconds, [num carCount=0]) {
+    var currentScore = score[currentSpeedLimit];
     if (currentScore != null) {
-      score[currentSpeed]['collisionCount'] = collisionCount;
-      score[currentSpeed]['minutes'] = minutes;
-      score[currentSpeed]['seconds'] = seconds;
-      if (carCount != null) {
-        score[currentSpeed]['carCount'] = carCount;
-      }
+      score[currentSpeedLimit]['collisionCount'] = collisionCount;
+      score[currentSpeedLimit]['minutes'] = minutes;
+      score[currentSpeedLimit]['seconds'] = seconds;
+      score[currentSpeedLimit]['carCount'] = carCount;
     } else {
       var speedScore = new Map<String, num>();
       speedScore['collisionCount'] = collisionCount;
       speedScore['minutes'] = minutes;
       speedScore['seconds'] = seconds;
-      if (carCount != null) {
-        speedScore['carCount'] = carCount;
-      }
-      score[currentSpeed] = speedScore;
+      speedScore['carCount'] = carCount;
+      score[currentSpeedLimit] = speedScore;
     }
   }
 
   bool betterTimeThan(Score other) {
+    // better: longer time played (more difficult)
     num thisSeconds = minutes * 60 + seconds;
     num otherSeconds = other.minutes * 60 + other.seconds;
     if (thisSeconds > otherSeconds) {
@@ -105,6 +101,7 @@ class Score {
   }
 
   bool betterCollisionCountThan(Score other) {
+    // better: less collisions
     if (other.minutes == 0 && other.seconds == 0) {
       return true;
     }
@@ -122,6 +119,7 @@ class Score {
   }
 
   bool betterCarCountThan(Score other) {
+    // better: more cars (more difficult)
     if (carCount > other.carCount) {
       return true;
     }

@@ -106,8 +106,7 @@ class Board {
     Element gitSection = document.query('#git');
 
     // Redraw every carCount ms.
-    new Timer.repeating(carCount < 20 ? carCount : carCount - 16,
-        (t) => stopped ? null : displayCars());
+    new Timer.repeating(10, (t) => stopped ? null : displayCars());
 
     // active time
     new Timer.repeating(1000, (t) {

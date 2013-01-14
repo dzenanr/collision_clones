@@ -6,5 +6,6 @@ description: >
   A canvas game with moving cars of different sizes and colors,
   whose objective is to move the red car without collisions.
 dependencies:
+  browser: any
   simple_audio:
     git: https://github.com/johnmccutchan/simpleaudio.git

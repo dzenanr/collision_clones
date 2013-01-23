@@ -1,7 +1,7 @@
 library collision_clones;
 
 import 'dart:html';
-import 'dart:isolate';
+import 'dart:async';
 import "dart:json";
 import 'dart:math';
 

@@ -1,7 +1,7 @@
 name: collision_clones
 author: Dzenan Ridjanovic <dzenanr@gmail.com>
 homepage: http://ondart.me/
-version: 0.0.1
+version: 0.0.2
 description: >
   A canvas game with moving cars of different sizes and colors,
   whose objective is to move the red car without collisions.

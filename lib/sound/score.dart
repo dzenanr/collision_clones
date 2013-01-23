@@ -52,7 +52,7 @@ class Score {
     String bestScoresString = window.localStorage[localStorageKey];
     if (bestScoresString != null) {
       print('load best scores: ${bestScoresString}');
-      Map<String, Map<String, num>> bestScoresMap = JSON.parse(bestScoresString);
+      Map<String, Map<String, num>> bestScoresMap = parse(bestScoresString);
       bestScoresMap.forEach((k,v) => score[k] = v);
       return true;
     }
@@ -60,7 +60,7 @@ class Score {
   }
 
   save() {
-    String bestScoresString = JSON.stringify(score);
+    String bestScoresString = stringify(score);
     window.localStorage[localStorageKey] = bestScoresString;
   }
 

@@ -52,7 +52,7 @@ class Board {
     InputElement speedLimitInput = document.query('#speed-limit');
     speedLimitInput.width = 2;
     speedLimitInput.value = score.currentSpeedLimit;
-    speedLimitInput.on.input.add((Event e) {
+    speedLimitInput.onInput.listen((Event e) {
       score.currentSpeedLimit = speedLimitInput.value;
       bestScore.currentSpeedLimit = speedLimitInput.value;
       bestScore.load();
@@ -69,7 +69,7 @@ class Board {
     InputElement timeLimitInput = document.query('#time-limit');
     timeLimitInput.width = 2;
     timeLimitInput.valueAsNumber = Score.timeLimit;
-    timeLimitInput.on.input.add((Event e) {
+    timeLimitInput.onInput.listen((Event e) {
       score.currentTimeLimit = timeLimitInput.valueAsNumber;
       bestScore.load();
       bestScoreSection.display();
@@ -84,7 +84,7 @@ class Board {
     LabelElement msgLabel = document.query('#msg');
     msgLabel.text = ' ';
     ButtonElement pauseButton = document.query('#pause');
-    pauseButton.on.click.add((MouseEvent e) {
+    pauseButton.onClick.listen((MouseEvent e) {
       if (stopped) {
         stopped = false;
         if (pauseButton.text == restart) {
@@ -106,10 +106,11 @@ class Board {
     Element gitSection = document.query('#git');
 
     // Redraw every carCount ms.
-    new Timer.repeating(10, (t) => stopped ? null : displayCars());
+    new Timer.repeating(const Duration(milliseconds: 10),
+        (t) => stopped ? null : displayCars());
 
     // active time
-    new Timer.repeating(1000, (t) {
+    new Timer.repeating(const Duration(milliseconds: 1000), (t) {
       if (!stopped && redCar.big) {
         gitSection.innerHtml = gitUl(redCar.gitCommands);
 

@@ -152,13 +152,13 @@ class RedCar extends RoundedCornerRectangle {
     width = bigWidth;
     height = bigHeight;
     label = 'GitHub';
-    canvas.document.on.mouseDown.add((MouseEvent e) {
+    canvas.document.onMouseDown.listen((MouseEvent e) {
       movable = !movable;
       if (small) {
         bigger();
       }
     });
-    canvas.document.on.mouseMove.add((MouseEvent e) {
+    canvas.document.onMouseMove.listen((MouseEvent e) {
       if (movable) {
         x = e.offsetX - 35;
         y = e.offsetY - 35;

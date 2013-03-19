@@ -160,8 +160,8 @@ class RedCar extends RoundedCornerRectangle {
     });
     canvas.document.onMouseMove.listen((MouseEvent e) {
       if (movable) {
-        x = e.offsetX - 35;
-        y = e.offsetY - 35;
+        x = e.offset.x - 35;
+        y = e.offset.y - 35;
         if (x > canvas.width) {
           bigger();
           x = canvas.width - 20;

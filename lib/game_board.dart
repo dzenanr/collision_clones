@@ -106,11 +106,11 @@ class Board {
     Element gitSection = document.query('#git');
 
     // Redraw every carCount ms.
-    new Timer.repeating(const Duration(milliseconds: 10),
+    new Timer.periodic(const Duration(milliseconds: 10),
         (t) => stopped ? null : displayCars());
 
     // active time
-    new Timer.repeating(const Duration(milliseconds: 1000), (t) {
+    new Timer.periodic(const Duration(milliseconds: 1000), (t) {
       if (!stopped && redCar.big) {
         gitSection.innerHtml = gitUl(redCar.gitCommands);
 

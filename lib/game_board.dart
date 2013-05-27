@@ -105,7 +105,7 @@ class Board {
 
     Element gitSection = document.query('#git');
 
-    // Redraw every carCount ms.
+    // Redraw every 10 ms.
     new Timer.periodic(const Duration(milliseconds: 10),
         (t) => stopped ? null : displayCars());
 

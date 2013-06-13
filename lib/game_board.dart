@@ -21,10 +21,10 @@ class BestScoreSection {
 }
 
 class Board {
-  const num carCount = 8;
-  const String play = 'Play';
-  const String stop = 'Stop';
-  const String restart = 'Restart';
+  static const num carCount = 8;
+  static const String play = 'Play';
+  static const String stop = 'Stop';
+  static const String restart = 'Restart';
 
   CanvasElement canvas = document.query('#canvas');
   LabelElement carCountLabel = document.query('#car-count');

@@ -137,7 +137,7 @@ class RedCar extends RoundedCornerRectangle {
   static const num smallHeight = 14;
   static const String smallColorCode = '#000000';
 
-  AudioManager audioManager;
+  sa.AudioManager audioManager;
   num collisionCount = 0;
 
   bool small = false;

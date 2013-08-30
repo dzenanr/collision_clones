@@ -2,10 +2,10 @@ library collision_clones;
 
 import 'dart:html';
 import 'dart:async';
-import "dart:json";
+import "dart:convert";
 import 'dart:math';
 
-import 'package:simple_audio/simple_audio.dart';
+import 'package:simple_audio/simple_audio.dart' as sa;
 
 part 'cars.dart';
 part 'game_board.dart';

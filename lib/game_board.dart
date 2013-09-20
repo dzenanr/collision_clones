@@ -105,7 +105,7 @@ class Board {
 
     Element gitSection = document.query('#git');
 
-    // active time
+    // active play time
     new Timer.periodic(const Duration(milliseconds: 1000), (t) {
       if (!stopped && redCar.big) {
         gitSection.innerHtml = gitUl(redCar.gitCommands);
@@ -156,7 +156,6 @@ class Board {
     });
 
     window.animationFrame.then(gameLoop);
-
   }
 
   gameLoop(num delta) {

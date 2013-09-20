@@ -34,43 +34,47 @@ abstract class RoundedCornerRectangle {
     if ((ex - sx) - (2 * r) < 0) {r = (( ex - sx ) / 2);}
     //ensure that the radius isn't too large for y
     if ((ey - sy) - (2 * r) < 0 ) {r = ((ey - sy) / 2 );}
-    context.moveTo(sx + r, sy);
-    context.lineTo(ex - r, sy);
-    context.arc(ex - r, sy + r, r, r2d * 270, r2d * 360, false);
-    context.lineTo(ex, ey - r);
-    context.arc(ex - r, ey - r, r, r2d * 0, r2d * 90, false);
-    context.lineTo(sx + r, ey);
-    context.arc(sx + r, ey - r, r, r2d * 90, r2d * 180, false);
-    context.lineTo(sx, sy + r);
-    context.arc(sx + r, sy + r, r, r2d * 180, r2d * 270, false);
-}
+    context
+      ..moveTo(sx + r, sy)
+      ..lineTo(ex - r, sy)
+      ..arc(ex - r, sy + r, r, r2d * 270, r2d * 360, false)
+      ..lineTo(ex, ey - r)
+      ..arc(ex - r, ey - r, r, r2d * 0, r2d * 90, false)
+      ..lineTo(sx + r, ey)
+      ..arc(sx + r, ey - r, r, r2d * 90, r2d * 180, false)
+      ..lineTo(sx, sy + r)
+      ..arc(sx + r, sy + r, r, r2d * 180, r2d * 270, false);
+  }
 
   draw() {
-    context.beginPath();
-    context.fillStyle = colorCode;
-    context.strokeStyle = 'black';
-    context.lineWidth = 2;
-    //context.rect(x, y, width, height);
+    context
+      ..beginPath()
+      ..fillStyle = colorCode
+      ..strokeStyle = 'black'
+      ..lineWidth = 2;
     roundedCorners(context, x, y, x + width, y + height, 10);
-    context.fill();
-    context.stroke();
-    context.closePath();
+    context
+      ..fill()
+      ..stroke()
+      ..closePath();
     // wheels
-    context.beginPath();
-    context.fillStyle = '#000000';
-    context.rect(x + 12, y - 3, 14, 6);
-    context.rect(x + width - 26, y - 3, 14, 6);
-    context.rect(x + 12, y + height - 3, 14, 6);
-    context.rect(x + width - 26, y + height - 3, 14, 6);
-    context.fill();
-    context.closePath();
-    // label
-    context.beginPath();
-    context.font = 'bold ${fontSize}px sans-serif';
-    context.textAlign = 'start';
-    context.textBaseline = 'top';
-    context.fillText(label, x + 4, y + 4, width - label.length - 4);
-    context.closePath();
+    context
+      ..beginPath()
+      ..fillStyle = '#000000'
+      ..rect(x + 12, y - 3, 14, 6)
+      ..rect(x + width - 26, y - 3, 14, 6)
+      ..rect(x + 12, y + height - 3, 14, 6)
+      ..rect(x + width - 26, y + height - 3, 14, 6)
+      ..fill()
+      ..closePath();
+   // label
+    context
+      ..beginPath()
+      ..font = 'bold ${fontSize}px sans-serif'
+      ..textAlign = 'start'
+      ..textBaseline = 'top'
+      ..fillText(label, x + 4, y + 4, width - label.length - 4)
+      ..closePath();
   }
 
 }

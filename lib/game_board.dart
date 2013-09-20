@@ -105,10 +105,6 @@ class Board {
 
     Element gitSection = document.query('#git');
 
-    // Redraw every 10 ms.
-    new Timer.periodic(const Duration(milliseconds: 10),
-        (t) => stopped ? null : displayCars());
-
     // active time
     new Timer.periodic(const Duration(milliseconds: 1000), (t) {
       if (!stopped && redCar.big) {
@@ -159,6 +155,13 @@ class Board {
       }
     });
 
+    window.animationFrame.then(gameLoop);
+
+  }
+
+  gameLoop(num delta) {
+    stopped ? null : displayCars();
+    window.animationFrame.then(gameLoop);
   }
 
   displayCars() {

@@ -1,6 +1,6 @@
 part of collision_clones;
 
-abstract class RoundedCornerRectangle {
+abstract class Vehicle {
   num x;
   num y;
   num width;
@@ -13,7 +13,7 @@ abstract class RoundedCornerRectangle {
   CanvasRenderingContext2D context;
   num fontSize = 12;
 
-  RoundedCornerRectangle(this.canvas) {
+  Vehicle(this.canvas) {
     context = canvas.getContext('2d');
 
     width = 75;
@@ -79,7 +79,7 @@ abstract class RoundedCornerRectangle {
 
 }
 
-class Car extends RoundedCornerRectangle {
+class Car extends Vehicle {
   static const String gitClone = 'git clone';
 
   num dx;
@@ -132,7 +132,7 @@ class Car extends RoundedCornerRectangle {
 
 }
 
-class RedCar extends RoundedCornerRectangle {
+class RedCar extends Vehicle {
   static const num bigWidth = 90;
   static const num bigHeight = 36;
   static const String bigColorCode = '#ff0000';

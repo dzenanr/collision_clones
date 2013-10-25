@@ -2,10 +2,10 @@ part of collision_clones;
 
 class BestScoreSection {
 
-  LabelElement bestSpeedLimitLabel = document.query('#best-speed-limit');
-  LabelElement bestCollisionCountLabel = document.query('#best-collision-count');
-  LabelElement bestTimeLabel = document.query('#best-time');
-  LabelElement bestCarCountLabel = document.query('#best-car-count');
+  LabelElement bestSpeedLimitLabel = document.querySelector('#best-speed-limit');
+  LabelElement bestCollisionCountLabel = document.querySelector('#best-collision-count');
+  LabelElement bestTimeLabel = document.querySelector('#best-time');
+  LabelElement bestCarCountLabel = document.querySelector('#best-car-count');
 
   Score bestScore;
 
@@ -26,8 +26,8 @@ class Board {
   static const String STOP = 'Stop';
   static const String RESTART = 'Restart';
 
-  CanvasElement canvas = document.query('#canvas');
-  LabelElement carCountLabel = document.query('#car-count');
+  CanvasElement canvas = document.querySelector('#canvas');
+  LabelElement carCountLabel = document.querySelector('#car-count');
 
   List<Car> cars;
   var redCar;
@@ -49,7 +49,7 @@ class Board {
     }
     displayCars();
 
-    InputElement speedLimitInput = document.query('#speed-limit');
+    InputElement speedLimitInput = document.querySelector('#speed-limit');
     speedLimitInput.width = 2;
     speedLimitInput.value = score.currentSpeedLimit;
     speedLimitInput.onInput.listen((Event e) {
@@ -64,9 +64,9 @@ class Board {
         car.dy = randomNum(speedLimitInput.valueAsNumber);
       }
     });
-    LabelElement collisionCountLabel = document.query('#collision-count');
-    LabelElement timeLabel = document.query('#time');
-    InputElement timeLimitInput = document.query('#time-limit');
+    LabelElement collisionCountLabel = document.querySelector('#collision-count');
+    LabelElement timeLabel = document.querySelector('#time');
+    InputElement timeLimitInput = document.querySelector('#time-limit');
     timeLimitInput.width = 2;
     timeLimitInput.valueAsNumber = Score.TIME_LIMIT;
     timeLimitInput.onInput.listen((Event e) {
@@ -81,9 +81,9 @@ class Board {
       }
     });
 
-    LabelElement msgLabel = document.query('#msg');
+    LabelElement msgLabel = document.querySelector('#msg');
     msgLabel.text = ' ';
-    ButtonElement pauseButton = document.query('#pause');
+    ButtonElement pauseButton = document.querySelector('#pause');
     pauseButton.onClick.listen((MouseEvent e) {
       if (stopped) {
         stopped = false;
@@ -103,7 +103,7 @@ class Board {
       }
     });
 
-    Element gitSection = document.query('#git');
+    Element gitSection = document.querySelector('#git');
 
     // active play time
     new Timer.periodic(const Duration(milliseconds: 1000), (t) {

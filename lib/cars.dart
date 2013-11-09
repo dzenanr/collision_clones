@@ -156,13 +156,13 @@ class RedCar extends Vehicle {
     width = bigWidth;
     height = bigHeight;
     label = 'GitHub';
-    canvas.document.onMouseDown.listen((MouseEvent e) {
+    document.onMouseDown.listen((MouseEvent e) {
       movable = !movable;
       if (small) {
         bigger();
       }
     });
-    canvas.document.onMouseMove.listen((MouseEvent e) {
+    document.onMouseMove.listen((MouseEvent e) {
       if (movable) {
         x = e.offset.x - 35;
         y = e.offset.y - 35;

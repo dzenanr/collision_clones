@@ -10,4 +10,3 @@ In order to revive it, move the cursor to one of the borders of the diagram.
 You loose if the number of collisions is greater than the time in seconds.
 After a certain number of collisions, clone cars appear.
 
-# ![Alt Collision Clones] (https://raw.github.com/dzenanr/collision_clones/master/img/screenshot.png)

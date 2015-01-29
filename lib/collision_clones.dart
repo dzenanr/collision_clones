@@ -5,12 +5,9 @@ import 'dart:async';
 import "dart:convert";
 import 'dart:math';
 
-import 'package:simple_audio/simple_audio.dart' as sa;
-
 part 'cars.dart';
 part 'game_board.dart';
 part 'score.dart';
-part 'sound/audio.dart';
 part 'util/color.dart';
 part 'util/git_commands.dart';
 part 'util/random.dart';

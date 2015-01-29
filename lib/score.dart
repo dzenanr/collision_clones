@@ -1,23 +1,23 @@
 part of collision_clones;
 
 class Score {
-  static const String SPEED_LIMIT = '2'; // upper limit in random speed
-  static const num TIME_LIMIT = 3; // in minutes
-  static const String LOCAL_STORAGE_KEY = 'best_score_per_speed';
+  static const String speedLimit = '2'; // upper limit in random speed
+  static const num timeLimit = 3; // in minutes
+  static const String localStorageKey = 'best_score_per_speed';
 
   var score = new Map<String, Map<String, num>>();
   String _currentSpeedLimit;
   num _currentTimeLimit;
 
   Score() {
-    _currentSpeedLimit = SPEED_LIMIT;
-    _currentTimeLimit = TIME_LIMIT;
+    _currentSpeedLimit = speedLimit;
+    _currentTimeLimit = timeLimit;
     zero();
   }
 
   Score.fromMap(Map<String, Map<String, num>> map) {
-    _currentSpeedLimit = SPEED_LIMIT;
-    _currentTimeLimit = TIME_LIMIT;
+    _currentSpeedLimit = speedLimit;
+    _currentTimeLimit = timeLimit;
     map.forEach((k,v) => score[k] = v);
   }
 
@@ -49,7 +49,7 @@ class Score {
   num get carCount => score[currentSpeedLimit]['carCount'];
 
   bool load() {
-    String bestScoresString = window.localStorage[LOCAL_STORAGE_KEY];
+    String bestScoresString = window.localStorage[localStorageKey];
     if (bestScoresString != null) {
       print('load best scores: ${bestScoresString}');
       Map<String, Map<String, num>> bestScoresMap = JSON.decode(bestScoresString);
@@ -61,7 +61,7 @@ class Score {
 
   save() {
     String bestScoresString = JSON.encode(score);
-    window.localStorage[LOCAL_STORAGE_KEY] = bestScoresString;
+    window.localStorage[localStorageKey] = bestScoresString;
   }
 
   update(num collisionCount, num minutes, num seconds, [num carCount=0]) {

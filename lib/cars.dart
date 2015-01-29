@@ -141,7 +141,6 @@ class RedCar extends Vehicle {
   static const num smallHeight = 14;
   static const String smallColorCode = '#000000';
 
-  sa.AudioManager audioManager;
   num collisionCount = 0;
 
   bool small = false;
@@ -151,7 +150,6 @@ class RedCar extends Vehicle {
   var _gitCommands = new List<String>();
 
   RedCar(canvas) : super(canvas) {
-    audioManager = new Audio().audioManager;
     colorCode = bigColorCode;
     width = bigWidth;
     height = bigHeight;
@@ -211,7 +209,6 @@ class RedCar extends Vehicle {
   smaller(Car car) {
     if (big) {
       small = true;
-      audioManager.playClipFromSourceIn(0.0, 'game', 'collision');
       colorCode = smallColorCode;
       width = smallWidth;
       height = smallHeight;

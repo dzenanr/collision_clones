@@ -21,10 +21,10 @@ class BestScoreSection {
 }
 
 class Board {
-  static const num CAR_COUNT = 8;
-  static const String PLAY = 'Play';
-  static const String STOP = 'Stop';
-  static const String RESTART = 'Restart';
+  static const num carCount = 8;
+  static const String play = 'Play';
+  static const String stop = 'Stop';
+  static const String restart = 'Restart';
 
   CanvasElement canvas = querySelector('#canvas');
   LabelElement carCountLabel = querySelector('#car-count');
@@ -43,7 +43,7 @@ class Board {
 
     redCar = new RedCar(canvas);
     cars = new List();
-    for (var i = 0; i < CAR_COUNT; i++) {
+    for (var i = 0; i < carCount; i++) {
       var car = new Car(canvas, score.currentSpeedLimit);
       cars.add(car);
     }
@@ -68,7 +68,7 @@ class Board {
     LabelElement timeLabel = querySelector('#time');
     InputElement timeLimitInput = querySelector('#time-limit');
     timeLimitInput.width = 2;
-    timeLimitInput.valueAsNumber = Score.TIME_LIMIT;
+    timeLimitInput.valueAsNumber = Score.timeLimit;
     timeLimitInput.onInput.listen((Event e) {
       score.currentTimeLimit = timeLimitInput.valueAsNumber;
       bestScore.load();
@@ -87,17 +87,17 @@ class Board {
     pauseButton.onClick.listen((MouseEvent e) {
       if (stopped) {
         stopped = false;
-        if (pauseButton.text == RESTART) {
+        if (pauseButton.text == restart) {
           score.zero();
           redCar.collisionCount = 0;
           redCar.movable = true;
           msgLabel.text = ' ';
           redCar.clearGitCommands();
         }
-        pauseButton.text = STOP;
+        pauseButton.text = stop;
       } else {
         stopped = true;
-        pauseButton.text = PLAY;
+        pauseButton.text = play;
         bestScoreSection.display();
         redCar.movable = false;
       }

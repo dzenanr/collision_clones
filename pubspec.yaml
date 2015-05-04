@@ -4,7 +4,7 @@ author: Dzenan Ridjanovic <dzenanr@gmail.com>
 description: A canvas game with moving cars of different sizes and colors, whose objective is to move the red car without collisions.
 homepage: http://ondart.me/
 environment:
-  sdk: '>=0.8.10+8 <2.0.0'
+  sdk: '>=1.10.0 <2.0.0'
 dependencies:
-  browser: '>=0.9.0 <0.10.0'
+  browser: ^0.10.0+2 
 

@@ -94,7 +94,7 @@ class Car extends Vehicle {
   move(RedCar redCar, List<Car> cars) {
     x += dx;
     y += dy;
-    if (redCar.big) {
+    if (redCar.isBig) {
       redCar.collision(this);
     }
     for (Car car in cars) {
@@ -143,9 +143,9 @@ class RedCar extends Vehicle {
 
   num collisionCount = 0;
 
-  bool small = false;
-  bool get big => !small;
-  bool movable = false;
+  bool isSmall = false;
+  bool get isBig => !isSmall;
+  bool isMovable = false;
 
   var _gitCommands = new List<String>();
 
@@ -155,13 +155,13 @@ class RedCar extends Vehicle {
     height = bigHeight;
     label = 'GitHub';
     document.onMouseDown.listen((MouseEvent e) {
-      movable = !movable;
-      if (small) {
+      isMovable = !isMovable;
+      if (isSmall) {
         bigger();
       }
     });
     document.onMouseMove.listen((MouseEvent e) {
-      if (movable) {
+      if (isMovable) {
         x = e.offset.x - 35;
         y = e.offset.y - 35;
         if (x > canvas.width) {
@@ -197,18 +197,18 @@ class RedCar extends Vehicle {
   }
 
   bigger() {
-    if (small) {
-      small = false;
+    if (isSmall) {
+      isSmall = false;
       colorCode = bigColorCode;
       width = bigWidth;
       height = bigHeight;
-      movable = true;
+      isMovable = true;
     }
   }
 
   smaller(Car car) {
-    if (big) {
-      small = true;
+    if (isBig) {
+      isSmall = true;
       colorCode = smallColorCode;
       width = smallWidth;
       height = smallHeight;
@@ -221,7 +221,7 @@ class RedCar extends Vehicle {
   }
 
   collision(Car car) {
-    if (big) {
+    if (isBig) {
       if (car.x < x  && car.y < y) {
         if (car.x + car.width >= x && car.y + car.height >= y) {
           smaller(car);
